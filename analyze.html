@@ -1,4 +1,4 @@
-<!-- analyze.html -->
+<!-- analyze.html - Enhanced Version -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2+family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
@@ -31,103 +31,303 @@
     </nav>
 
     <main class="analyze-container">
-        <aside class="document-sidebar">
-            <div class="sidebar-header">
-                <h2>Documents</h2>
-                <button class="btn-icon" title="Add document">
-                    <svg width="20" height="20" fill="currentColor">
-                        <path d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"/>
+        <!-- Enhanced Document Sidebar with Chat History -->
+        <aside class="document-sidebar enhanced">
+            <div class="sidebar-tabs">
+                <button class="tab-button active" data-tab="documents">
+                    <svg width="16" height="16" fill="currentColor">
+                        <path d="M2 4a2 2 0 012-2h8l4 4v8a2 2 0 01-2 2H4a2 2 0 01-2-2V4z"/>
                     </svg>
+                    Documents
+                </button>
+                <button class="tab-button" data-tab="history">
+                    <svg width="16" height="16" fill="currentColor">
+                        <path d="M8 2a6 6 0 100 12A6 6 0 008 2zm2 9l-3-3V5h1v2.5L10 9.5V11z"/>
+                    </svg>
+                    History
                 </button>
             </div>
             
-            <div class="document-list">
-                <div class="document-item active" data-fund="VMFXX">
-                    <div class="document-icon">📊</div>
-                    <div class="document-info">
-                        <div class="document-name">VMFXX</div>
-                        <div class="document-type">Money Market Fund</div>
-                    </div>
+            <!-- Documents Tab -->
+            <div class="tab-content active" id="documents-tab">
+                <div class="sidebar-header">
+                    <h2>Documents</h2>
+                    <button class="btn-icon pulse-on-hover" title="Add document">
+                        <svg width="20" height="20" fill="currentColor">
+                            <path d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"/>
+                        </svg>
+                    </button>
                 </div>
                 
-                <div class="document-item" data-fund="VMRXX">
-                    <div class="document-icon">📈</div>
-                    <div class="document-info">
-                        <div class="document-name">VMRXX</div>
-                        <div class="document-type">Money Market Fund</div>
+                <div class="document-list">
+                    <div class="document-item active" data-fund="VMFXX">
+                        <div class="document-icon">📊</div>
+                        <div class="document-info">
+                            <div class="document-name">VMFXX</div>
+                            <div class="document-type">Money Market Fund</div>
+                        </div>
+                        <div class="document-status">
+                            <span class="status-indicator active"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="document-item" data-fund="VMRXX">
+                        <div class="document-icon">📈</div>
+                        <div class="document-info">
+                            <div class="document-name">VMRXX</div>
+                            <div class="document-type">Money Market Fund</div>
+                        </div>
+                        <div class="document-status">
+                            <span class="status-indicator"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="document-item" data-fund="SPAXX">
+                        <div class="document-icon">💰</div>
+                        <div class="document-info">
+                            <div class="document-name">SPAXX</div>
+                            <div class="document-type">Money Market Fund</div>
+                        </div>
+                        <div class="document-status">
+                            <span class="status-indicator"></span>
+                        </div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Chat History Tab -->
+            <div class="tab-content" id="history-tab">
+                <div class="sidebar-header">
+                    <h2>Chat History</h2>
+                    <button class="btn-icon" title="New chat">
+                        <svg width="20" height="20" fill="currentColor">
+                            <path d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2H7l-4 4V5z"/>
+                            <path d="M15 10h2a2 2 0 012 2v6l-2 2v-8a2 2 0 00-2-2z"/>
+                        </svg>
+                    </button>
+                </div>
                 
-                <div class="document-item" data-fund="SPAXX">
-                    <div class="document-icon">💰</div>
-                    <div class="document-info">
-                        <div class="document-name">SPAXX</div>
-                        <div class="document-type">Money Market Fund</div>
+                <div class="chat-history-list">
+                    <div class="chat-history-item active">
+                        <div class="chat-preview">
+                            <div class="chat-title">VMFXX Comprehensive Analysis</div>
+                            <div class="chat-meta">
+                                <span class="chat-time">2 min ago</span>
+                                <span class="chat-messages">5 messages</span>
+                            </div>
+                            <div class="chat-snippet">Analyzed yield, risks, and investment strategy...</div>
+                            <div class="chat-documents">
+                                <span class="doc-tag">VMFXX</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-history-item">
+                        <div class="chat-preview">
+                            <div class="chat-title">Fund Comparison: All Three</div>
+                            <div class="chat-meta">
+                                <span class="chat-time">1 hour ago</span>
+                                <span class="chat-messages">8 messages</span>
+                            </div>
+                            <div class="chat-snippet">Compared yields, expenses, and minimum investments...</div>
+                            <div class="chat-documents">
+                                <span class="doc-tag">VMFXX</span>
+                                <span class="doc-tag">VMRXX</span>
+                                <span class="doc-tag">SPAXX</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-history-item">
+                        <div class="chat-preview">
+                            <div class="chat-title">Risk Assessment Deep Dive</div>
+                            <div class="chat-meta">
+                                <span class="chat-time">Yesterday</span>
+                                <span class="chat-messages">12 messages</span>
+                            </div>
+                            <div class="chat-snippet">Detailed risk analysis across all fund types...</div>
+                            <div class="chat-documents">
+                                <span class="doc-tag">VMFXX</span>
+                                <span class="doc-tag">VMRXX</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </aside>
 
         <section class="chat-section">
-            <div class="chat-header">
-                <h1>AI Financial Advisor</h1>
-               <div class="chat-status">
-                   <span class="status-dot"></span>
-                   <span>Ready to analyze</span>
-               </div>
-           </div>
+            <div class="chat-header enhanced">
+                <div class="chat-header-left">
+                    <h1>AI Financial Advisor</h1>
+                    <div class="chat-session-info">
+                        <span class="session-id">Session #A7B3</span>
+                        <span class="session-start">Started 2:34 PM</span>
+                    </div>
+                </div>
+                <div class="chat-header-right">
+                    <div class="chat-status">
+                        <span class="status-dot"></span>
+                        <span>Ready to analyze</span>
+                    </div>
+                    <button class="btn-icon" title="Export chat" onclick="exportChat()">
+                        <svg width="20" height="20" fill="currentColor">
+                            <path d="M3 15v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
 
-           <div class="chat-messages" id="chatMessages">
-               <div class="message assistant">
-                   <div class="message-avatar">🤖</div>
-                   <div class="message-content">
-                       <p>Hello! I'm your AI financial advisor. I have access to the prospectuses for <strong>VMFXX</strong>, <strong>VMRXX</strong>, and <strong>SPAXX</strong>.</p>
-                       <p>I can help you:</p>
-                       <ul>
-                           <li>Analyze individual fund characteristics</li>
-                           <li>Compare funds side-by-side</li>
-                           <li>Identify risks and opportunities</li>
-                           <li>Answer specific questions about holdings, fees, or performance</li>
-                       </ul>
-                       <p>What would you like to know?</p>
-                   </div>
-               </div>
-           </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message assistant">
+                    <div class="message-avatar">
+                        <div class="ai-avatar-animated">
+                            <div class="ai-brain">
+                                <span class="neuron"></span>
+                                <span class="neuron"></span>
+                                <span class="neuron"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="message-content">
+                        <p>Hello! I'm your AI financial advisor. I have access to the prospectuses for <strong>VMFXX</strong>, <strong>VMRXX</strong>, and <strong>SPAXX</strong>.</p>
+                        <p>I can help you:</p>
+                        <ul>
+                            <li>Analyze individual fund characteristics</li>
+                            <li>Compare funds side-by-side</li>
+                            <li>Identify risks and opportunities</li>
+                            <li>Answer specific questions about holdings, fees, or performance</li>
+                        </ul>
+                        <p>What would you like to know?</p>
+                    </div>
+                    <div class="message-timestamp">2:34 PM</div>
+                </div>
+            </div>
 
-           <div class="suggested-queries">
-               <button class="query-chip" onclick="sendQuery(this)">
-                   Analyze VMFXX comprehensively
-               </button>
-               <button class="query-chip" onclick="sendQuery(this)">
-                   Compare all three funds
-               </button>
-               <button class="query-chip" onclick="sendQuery(this)">
-                   Which fund has the lowest risk?
-               </button>
-               <button class="query-chip" onclick="sendQuery(this)">
-                   Explain fee structures
-               </button>
-           </div>
+            <!-- Audit Trail Summary (Hidden by default) -->
+            <div class="audit-trail" id="auditTrail" style="display: none;">
+                <div class="audit-header">
+                    <h3>Conversation Summary</h3>
+                    <button class="btn-icon" onclick="closeAuditTrail()">
+                        <svg width="20" height="20" fill="currentColor">
+                            <path d="M6 18L18 6M6 6l12 12" stroke-width="2"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="audit-content">
+                    <div class="audit-section">
+                        <h4>Key Topics Discussed</h4>
+                        <div class="topic-tags">
+                            <span class="topic-tag">Yield Comparison</span>
+                            <span class="topic-tag">Risk Assessment</span>
+                            <span class="topic-tag">Fee Structure</span>
+                        </div>
+                    </div>
+                    <div class="audit-section">
+                        <h4>Documents Referenced</h4>
+                        <div class="document-references">
+                            <div class="doc-ref">
+                                <span class="doc-icon">📊</span>
+                                <span class="doc-name">VMFXX Prospectus</span>
+                                <span class="doc-pages">Pages 12-15, 23, 45-47</span>
+                            </div>
+                            <div class="doc-ref">
+                                <span class="doc-icon">📈</span>
+                                <span class="doc-name">VMRXX Annual Report</span>
+                                <span class="doc-pages">Pages 8-10</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="audit-section">
+                        <h4>Key Insights</h4>
+                        <ul class="insights-list">
+                            <li>VMFXX offers the best balance of yield and accessibility for retail investors</li>
+                            <li>All three funds maintain stable NAV with government securities focus</li>
+                            <li>Expense ratios significantly impact net returns in current rate environment</li>
+                        </ul>
+                    </div>
+                    <div class="audit-section">
+                        <h4>Compliance Notes</h4>
+                        <div class="compliance-info">
+                            <p>✓ All recommendations based on publicly available prospectus data</p>
+                            <p>✓ Risk disclosures provided for each fund</p>
+                            <p>✓ No personalized investment advice given</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="audit-footer">
+                    <button class="btn btn-secondary" onclick="saveAuditTrail()">
+                        Save to Records
+                    </button>
+                    <button class="btn btn-primary" onclick="generateReport()">
+                        Generate Full Report
+                    </button>
+                </div>
+            </div>
 
-           <div class="chat-input-container">
-               <div class="chat-input-wrapper">
-                   <textarea 
-                       id="chatInput" 
-                       class="chat-input" 
-                       placeholder="Ask me anything about these funds..."
-                       rows="1"
-                   ></textarea>
-                   <button id="sendButton" class="send-button">
-                       <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-                           <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
-                       </svg>
-                   </button>
-               </div>
-           </div>
-       </section>
-   </main>
+            <div class="suggested-queries">
+                <button class="query-chip glow-on-hover" onclick="sendQuery(this)">
+                    <span class="chip-icon">🎯</span>
+                    Analyze VMFXX comprehensively
+                </button>
+                <button class="query-chip glow-on-hover" onclick="sendQuery(this)">
+                    <span class="chip-icon">⚖️</span>
+                    Compare all three funds
+                </button>
+                <button class="query-chip glow-on-hover" onclick="sendQuery(this)">
+                    <span class="chip-icon">🛡️</span>
+                    Which fund has the lowest risk?
+                </button>
+                <button class="query-chip glow-on-hover" onclick="sendQuery(this)">
+                    <span class="chip-icon">💰</span>
+                    Explain fee structures
+                </button>
+            </div>
 
-   <script src="js/shared.js"></script>
-   <script src="js/analyze.js"></script>
+            <div class="chat-input-container">
+                <div class="active-context">
+                    <span class="context-label">Analyzing:</span>
+                    <span class="context-doc">VMFXX</span>
+                    <button class="context-clear" onclick="clearContext()">×</button>
+                </div>
+                <div class="chat-input-wrapper">
+                    <textarea 
+                        id="chatInput" 
+                        class="chat-input" 
+                        placeholder="Ask me anything about these funds..."
+                        rows="1"
+                    ></textarea>
+                    <div class="input-actions">
+                        <button class="action-btn" title="Add attachment">
+                            <svg width="20" height="20" fill="currentColor">
+                                <path d="M10 2a7 7 0 00-7 7c0 1.5.5 2.9 1.3 4L2 18l5-2.3c1.1.8 2.5 1.3 4 1.3a7 7 0 000-14z"/>
+                            </svg>
+                        </button>
+                        <button class="action-btn" title="Voice input">
+                            <svg width="20" height="20" fill="currentColor">
+                                <path d="M12 14a4 4 0 004-4V6a4 4 0 00-8 0v4a4 4 0 004 4z"/>
+                                <path d="M8 18h8M12 18v4"/>
+                            </svg>
+                        </button>
+                        <button id="sendButton" class="send-button">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Floating Action Button for Audit Trail -->
+        <button class="fab" onclick="showAuditTrail()" title="View conversation summary">
+            <svg width="24" height="24" fill="currentColor">
+                <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+            </svg>
+        </button>
+    </main>
+
+    <script src="js/shared.js"></script>
+    <script src="js/analyze-enhanced.js"></script>
 </body>
 </html>
