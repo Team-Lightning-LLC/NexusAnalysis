@@ -1,4 +1,3 @@
-<!-- analyze.html - Enhanced Version -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,20 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analyze - Nexus Advisory</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/analyze.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Top Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <svg class="logo-icon" width="32" height="32" viewBox="0 0 32 32">
-                    <circle cx="16" cy="16" r="14" fill="none" stroke="#0052FF" stroke-width="2"/>
-                    <path d="M16 8 L24 16 L16 24 L8 16 Z" fill="#0052FF" opacity="0.1"/>
-                    <circle cx="16" cy="16" r="4" fill="#0052FF"/>
-                </svg>
+                <div class="logo-icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32">
+                        <circle cx="16" cy="16" r="14" fill="none" stroke="#0052FF" stroke-width="2"/>
+                        <circle cx="16" cy="16" r="4" fill="#0052FF"/>
+                    </svg>
+                </div>
                 <span class="logo-text">NEXUS ADVISORY</span>
             </div>
             <div class="nav-links">
@@ -30,163 +30,139 @@
         </div>
     </nav>
 
-    <main class="analyze-container">
-        <!-- Enhanced Document Sidebar with Chat History -->
-        <aside class="document-sidebar enhanced">
+    <!-- Main Content -->
+    <main class="analyze-layout">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <!-- Tab Navigation -->
             <div class="sidebar-tabs">
-                <button class="tab-button active" data-tab="documents">
-                    <svg width="16" height="16" fill="currentColor">
+                <button class="tab-btn active" data-tab="documents">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                         <path d="M2 4a2 2 0 012-2h8l4 4v8a2 2 0 01-2 2H4a2 2 0 01-2-2V4z"/>
                     </svg>
                     Documents
                 </button>
-                <button class="tab-button" data-tab="history">
-                    <svg width="16" height="16" fill="currentColor">
-                        <path d="M8 2a6 6 0 100 12A6 6 0 008 2zm2 9l-3-3V5h1v2.5L10 9.5V11z"/>
+                <button class="tab-btn" data-tab="history">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M8 5v3l2 2"/>
                     </svg>
                     History
                 </button>
             </div>
-            
-            <!-- Documents Tab -->
-            <div class="tab-content active" id="documents-tab">
+
+            <!-- Documents Tab Content -->
+            <div class="tab-content" id="documents-tab">
                 <div class="sidebar-header">
                     <h2>Documents</h2>
-                    <button class="btn-icon pulse-on-hover" title="Add document">
-                        <svg width="20" height="20" fill="currentColor">
+                    <button class="add-btn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"/>
                         </svg>
                     </button>
                 </div>
-                
+
                 <div class="document-list">
-                    <div class="document-item active" data-fund="VMFXX">
-                        <div class="document-icon">📊</div>
-                        <div class="document-info">
-                            <div class="document-name">VMFXX</div>
-                            <div class="document-type">Money Market Fund</div>
+                    <div class="document-item active">
+                        <div class="doc-icon">📊</div>
+                        <div class="doc-info">
+                            <div class="doc-name">VMFXX</div>
+                            <div class="doc-type">Money Market Fund</div>
                         </div>
-                        <div class="document-status">
-                            <span class="status-indicator active"></span>
-                        </div>
-                    </div>
-                    
-                    <div class="document-item" data-fund="VMRXX">
-                        <div class="document-icon">📈</div>
-                        <div class="document-info">
-                            <div class="document-name">VMRXX</div>
-                            <div class="document-type">Money Market Fund</div>
-                        </div>
-                        <div class="document-status">
-                            <span class="status-indicator"></span>
+                        <div class="doc-status">
+                            <span class="status-dot active"></span>
                         </div>
                     </div>
-                    
-                    <div class="document-item" data-fund="SPAXX">
-                        <div class="document-icon">💰</div>
-                        <div class="document-info">
-                            <div class="document-name">SPAXX</div>
-                            <div class="document-type">Money Market Fund</div>
+
+                    <div class="document-item">
+                        <div class="doc-icon">📈</div>
+                        <div class="doc-info">
+                            <div class="doc-name">VMRXX</div>
+                            <div class="doc-type">Money Market Fund</div>
                         </div>
-                        <div class="document-status">
-                            <span class="status-indicator"></span>
+                        <div class="doc-status">
+                            <span class="status-dot"></span>
+                        </div>
+                    </div>
+
+                    <div class="document-item">
+                        <div class="doc-icon">💰</div>
+                        <div class="doc-info">
+                            <div class="doc-name">SPAXX</div>
+                            <div class="doc-type">Money Market Fund</div>
+                        </div>
+                        <div class="doc-status">
+                            <span class="status-dot"></span>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Chat History Tab -->
-            <div class="tab-content" id="history-tab">
+
+            <!-- History Tab Content -->
+            <div class="tab-content hidden" id="history-tab">
                 <div class="sidebar-header">
-                    <h2>Chat History</h2>
-                    <button class="btn-icon" title="New chat">
-                        <svg width="20" height="20" fill="currentColor">
-                            <path d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2H7l-4 4V5z"/>
-                            <path d="M15 10h2a2 2 0 012 2v6l-2 2v-8a2 2 0 00-2-2z"/>
+                    <h2>History</h2>
+                    <button class="add-btn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"/>
                         </svg>
                     </button>
                 </div>
-                
-                <div class="chat-history-list">
-                    <div class="chat-history-item active">
-                        <div class="chat-preview">
-                            <div class="chat-title">VMFXX Comprehensive Analysis</div>
-                            <div class="chat-meta">
-                                <span class="chat-time">2 min ago</span>
-                                <span class="chat-messages">5 messages</span>
-                            </div>
-                            <div class="chat-snippet">Analyzed yield, risks, and investment strategy...</div>
-                            <div class="chat-documents">
-                                <span class="doc-tag">VMFXX</span>
-                            </div>
-                        </div>
+
+                <div class="history-list">
+                    <div class="history-item active">
+                        <div class="history-title">Current Session</div>
+                        <div class="history-meta">Started 2:34 PM • 1 message</div>
+                        <div class="history-preview">Initial analysis request...</div>
                     </div>
-                    
-                    <div class="chat-history-item">
-                        <div class="chat-preview">
-                            <div class="chat-title">Fund Comparison: All Three</div>
-                            <div class="chat-meta">
-                                <span class="chat-time">1 hour ago</span>
-                                <span class="chat-messages">8 messages</span>
-                            </div>
-                            <div class="chat-snippet">Compared yields, expenses, and minimum investments...</div>
-                            <div class="chat-documents">
-                                <span class="doc-tag">VMFXX</span>
-                                <span class="doc-tag">VMRXX</span>
-                                <span class="doc-tag">SPAXX</span>
-                            </div>
-                        </div>
+
+                    <div class="history-item">
+                        <div class="history-title">Fund Comparison</div>
+                        <div class="history-meta">2 hours ago • 8 messages</div>
+                        <div class="history-preview">Compared all three funds...</div>
                     </div>
-                    
-                    <div class="chat-history-item">
-                        <div class="chat-preview">
-                            <div class="chat-title">Risk Assessment Deep Dive</div>
-                            <div class="chat-meta">
-                                <span class="chat-time">Yesterday</span>
-                                <span class="chat-messages">12 messages</span>
-                            </div>
-                            <div class="chat-snippet">Detailed risk analysis across all fund types...</div>
-                            <div class="chat-documents">
-                                <span class="doc-tag">VMFXX</span>
-                                <span class="doc-tag">VMRXX</span>
-                            </div>
-                        </div>
+
+                    <div class="history-item">
+                        <div class="history-title">Risk Assessment</div>
+                        <div class="history-meta">Yesterday • 12 messages</div>
+                        <div class="history-preview">Deep dive into risk factors...</div>
                     </div>
                 </div>
             </div>
         </aside>
 
-        <section class="chat-section">
-            <div class="chat-header enhanced">
-                <div class="chat-header-left">
+        <!-- Chat Area -->
+        <section class="chat-area">
+            <!-- Chat Header -->
+            <header class="chat-header">
+                <div class="header-left">
                     <h1>AI Financial Advisor</h1>
-                    <div class="chat-session-info">
+                    <div class="session-info">
                         <span class="session-id">Session #A7B3</span>
-                        <span class="session-start">Started 2:34 PM</span>
+                        <span class="session-time">Started 2:34 PM</span>
                     </div>
                 </div>
-                <div class="chat-header-right">
-                    <div class="chat-status">
-                        <span class="status-dot"></span>
+                <div class="header-right">
+                    <div class="status">
+                        <span class="status-indicator"></span>
                         <span>Ready to analyze</span>
                     </div>
-                    <button class="btn-icon" title="Export chat" onclick="exportChat()">
-                        <svg width="20" height="20" fill="currentColor">
-                            <path d="M3 15v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                    <button class="export-btn" title="Export chat">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M3 15v3a1 1 0 001 1h12a1 1 0 001-1v-3M7 10l3 3 3-3M10 3v10"/>
                         </svg>
                     </button>
                 </div>
-            </div>
+            </header>
 
-            <div class="chat-messages" id="chatMessages">
+            <!-- Messages Area -->
+            <div class="messages-container" id="messages">
                 <div class="message assistant">
-                    <div class="message-avatar">
-                        <div class="ai-avatar-animated">
-                            <div class="ai-brain">
-                                <span class="neuron"></span>
-                                <span class="neuron"></span>
-                                <span class="neuron"></span>
-                            </div>
+                    <div class="avatar">
+                        <div class="ai-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                                <path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm0 18a8 8 0 118-8 8 8 0 01-8 8zm0-13a1 1 0 00-1 1v4a1 1 0 002 0V8a1 1 0 00-1-1zm0 8a1 1 0 100 2 1 1 0 000-2z"/>
+                            </svg>
                         </div>
                     </div>
                     <div class="message-content">
@@ -200,118 +176,57 @@
                         </ul>
                         <p>What would you like to know?</p>
                     </div>
-                    <div class="message-timestamp">2:34 PM</div>
                 </div>
             </div>
 
-            <!-- Audit Trail Summary (Hidden by default) -->
-            <div class="audit-trail" id="auditTrail" style="display: none;">
-                <div class="audit-header">
-                    <h3>Conversation Summary</h3>
-                    <button class="btn-icon" onclick="closeAuditTrail()">
-                        <svg width="20" height="20" fill="currentColor">
-                            <path d="M6 18L18 6M6 6l12 12" stroke-width="2"/>
-                        </svg>
-                    </button>
-                </div>
-                <div class="audit-content">
-                    <div class="audit-section">
-                        <h4>Key Topics Discussed</h4>
-                        <div class="topic-tags">
-                            <span class="topic-tag">Yield Comparison</span>
-                            <span class="topic-tag">Risk Assessment</span>
-                            <span class="topic-tag">Fee Structure</span>
-                        </div>
-                    </div>
-                    <div class="audit-section">
-                        <h4>Documents Referenced</h4>
-                        <div class="document-references">
-                            <div class="doc-ref">
-                                <span class="doc-icon">📊</span>
-                                <span class="doc-name">VMFXX Prospectus</span>
-                                <span class="doc-pages">Pages 12-15, 23, 45-47</span>
-                            </div>
-                            <div class="doc-ref">
-                                <span class="doc-icon">📈</span>
-                                <span class="doc-name">VMRXX Annual Report</span>
-                                <span class="doc-pages">Pages 8-10</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="audit-section">
-                        <h4>Key Insights</h4>
-                        <ul class="insights-list">
-                            <li>VMFXX offers the best balance of yield and accessibility for retail investors</li>
-                            <li>All three funds maintain stable NAV with government securities focus</li>
-                            <li>Expense ratios significantly impact net returns in current rate environment</li>
-                        </ul>
-                    </div>
-                    <div class="audit-section">
-                        <h4>Compliance Notes</h4>
-                        <div class="compliance-info">
-                            <p>✓ All recommendations based on publicly available prospectus data</p>
-                            <p>✓ Risk disclosures provided for each fund</p>
-                            <p>✓ No personalized investment advice given</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="audit-footer">
-                    <button class="btn btn-secondary" onclick="saveAuditTrail()">
-                        Save to Records
-                    </button>
-                    <button class="btn btn-primary" onclick="generateReport()">
-                        Generate Full Report
-                    </button>
-                </div>
-            </div>
-
-            <div class="suggested-queries">
-                <button class="query-chip glow-on-hover" onclick="sendQuery(this)">
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <button class="action-chip" onclick="sendQuickQuery(this)">
                     <span class="chip-icon">🎯</span>
                     Analyze VMFXX comprehensively
                 </button>
-                <button class="query-chip glow-on-hover" onclick="sendQuery(this)">
+                <button class="action-chip" onclick="sendQuickQuery(this)">
                     <span class="chip-icon">⚖️</span>
                     Compare all three funds
                 </button>
-                <button class="query-chip glow-on-hover" onclick="sendQuery(this)">
+                <button class="action-chip" onclick="sendQuickQuery(this)">
                     <span class="chip-icon">🛡️</span>
                     Which fund has the lowest risk?
                 </button>
-                <button class="query-chip glow-on-hover" onclick="sendQuery(this)">
+                <button class="action-chip" onclick="sendQuickQuery(this)">
                     <span class="chip-icon">💰</span>
                     Explain fee structures
                 </button>
             </div>
 
-            <div class="chat-input-container">
-                <div class="active-context">
-                    <span class="context-label">Analyzing:</span>
-                    <span class="context-doc">VMFXX</span>
+            <!-- Input Area -->
+            <div class="input-area">
+                <div class="context-indicator">
+                    <span>Analyzing:</span>
+                    <span class="context-fund">VMFXX</span>
                     <button class="context-clear" onclick="clearContext()">×</button>
                 </div>
-                <div class="chat-input-wrapper">
+                <div class="input-container">
                     <textarea 
-                        id="chatInput" 
-                        class="chat-input" 
+                        id="messageInput" 
                         placeholder="Ask me anything about these funds..."
                         rows="1"
                     ></textarea>
                     <div class="input-actions">
-                        <button class="action-btn" title="Add attachment">
-                            <svg width="20" height="20" fill="currentColor">
-                                <path d="M10 2a7 7 0 00-7 7c0 1.5.5 2.9 1.3 4L2 18l5-2.3c1.1.8 2.5 1.3 4 1.3a7 7 0 000-14z"/>
+                        <button class="input-btn" title="Attach file">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H9a1 1 0 01-1-1V7z"/>
                             </svg>
                         </button>
-                        <button class="action-btn" title="Voice input">
-                            <svg width="20" height="20" fill="currentColor">
-                                <path d="M12 14a4 4 0 004-4V6a4 4 0 00-8 0v4a4 4 0 004 4z"/>
-                                <path d="M8 18h8M12 18v4"/>
+                        <button class="input-btn" title="Voice input">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10 12a2 2 0 002-2V6a2 2 0 10-4 0v4a2 2 0 002 2z"/>
+                                <path d="M6 10a4 4 0 108 0M10 12v4M8 16h4"/>
                             </svg>
                         </button>
-                        <button id="sendButton" class="send-button">
-                            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                        <button class="send-btn" id="sendBtn">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="white">
+                                <path d="M2 10l16-7-4 7 4 7z"/>
                             </svg>
                         </button>
                     </div>
@@ -319,15 +234,70 @@
             </div>
         </section>
 
-        <!-- Floating Action Button for Audit Trail -->
-        <button class="fab" onclick="showAuditTrail()" title="View conversation summary">
-            <svg width="24" height="24" fill="currentColor">
-                <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+        <!-- Floating Summary Button -->
+        <button class="summary-fab" onclick="showSummary()" title="View conversation summary">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2zm0 16H5V9h14v11z"/>
             </svg>
         </button>
     </main>
 
-    <script src="js/shared.js"></script>
-    <script src="js/analyze-enhanced.js"></script>
+    <!-- Conversation Summary Modal -->
+    <div class="summary-modal" id="summaryModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Conversation Summary</h3>
+                <button class="close-btn" onclick="closeSummary()">×</button>
+            </div>
+            <div class="modal-body">
+                <section class="summary-section">
+                    <h4>Key Topics Discussed</h4>
+                    <div class="topic-tags">
+                        <span class="tag">Yield Analysis</span>
+                        <span class="tag">Risk Assessment</span>
+                        <span class="tag">Fee Comparison</span>
+                    </div>
+                </section>
+
+                <section class="summary-section">
+                    <h4>Documents Referenced</h4>
+                    <div class="doc-refs">
+                        <div class="doc-ref">
+                            <span>📊 VMFXX Prospectus</span>
+                            <span class="pages">Pages 12-15, 23</span>
+                        </div>
+                        <div class="doc-ref">
+                            <span>📈 VMRXX Annual Report</span>
+                            <span class="pages">Pages 8-10</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="summary-section">
+                    <h4>Key Insights</h4>
+                    <ul class="insights">
+                        <li>VMFXX offers the best balance for retail investors</li>
+                        <li>All funds maintain stable NAV with government securities</li>
+                        <li>Expense ratios significantly impact net returns</li>
+                    </ul>
+                </section>
+
+                <section class="summary-section">
+                    <h4>Compliance Notes</h4>
+                    <div class="compliance">
+                        <p>✓ All recommendations based on public prospectus data</p>
+                        <p>✓ Risk disclosures provided</p>
+                        <p>✓ No personalized investment advice given</p>
+                    </div>
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" onclick="saveSummary()">Save to Records</button>
+                <button class="btn primary" onclick="generateReport()">Generate Report</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/analyze.js"></script>
 </body>
 </html>
