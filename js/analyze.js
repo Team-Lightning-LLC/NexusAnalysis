@@ -1,4 +1,4 @@
-// analyze.js
+// analyze.js - Updated version
 document.addEventListener('DOMContentLoaded', function() {
     // Elements
     const messageInput = document.getElementById('messageInput');
@@ -52,6 +52,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // History item selection
+    document.querySelectorAll('.history-item').forEach(item => {
+        item.addEventListener('click', function() {
+            // Update active state
+            document.querySelectorAll('.history-item').forEach(hist => {
+                hist.classList.remove('active');
+            });
+            this.classList.add('active');
+            
+            // Load chat (simulated)
+            const title = this.querySelector('.history-title').textContent;
+            if (title !== 'Current Session') {
+                alert(`Loading chat: ${title}`);
+            }
+        });
+    });
+    
     // Auto-resize textarea
     messageInput.addEventListener('input', function() {
         this.style.height = 'auto';
@@ -100,6 +117,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (currentSession.messages.length >= 4) {
                 document.querySelector('.summary-fab').style.display = 'flex';
             }
+            
+            // Update message count in current session
+            updateCurrentSessionInfo();
         }, 1500);
     }
     
@@ -224,9 +244,82 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.context-indicator').style.display = 'none';
     };
     
-    // Summary modal
+    // New chat function
+    window.startNewChat = function() {
+        if (currentSession.messages.length > 0) {
+            if (!confirm('Start a new chat? Current conversation will be saved to history.')) {
+                return;
+            }
+        }
+        
+        // Clear messages
+        messagesContainer.innerHTML = `
+            <div class="message assistant">
+                <div class="avatar">
+                    <div class="ai-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                            <path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm0 18a8 8 0 118-8 8 8 0 01-8 8zm0-13a1 1 0 00-1 1v4a1 1 0 002 0V8a1 1 0 00-1-1zm0 8a1 1 0 100 2 1 1 0 000-2z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="message-content">
+                    <p>Hello! I'm your AI financial advisor. I have access to the prospectuses for <strong>VMFXX</strong>, <strong>VMRXX</strong>, and <strong>SPAXX</strong>.</p>
+                    <p>I can help you:</p>
+                    <ul>
+                        <li>Analyze individual fund characteristics</li>
+                        <li>Compare funds side-by-side</li>
+                        <li>Identify risks and opportunities</li>
+                        <li>Answer specific questions about holdings, fees, or performance</li>
+                    </ul>
+                    <p>What would you like to know?</p>
+                </div>
+            </div>
+        `;
+        
+        // Reset session
+        currentSession = {
+            id: generateSessionId(),
+            startTime: new Date(),
+            messages: [],
+            activeDocument: 'VMFXX',
+            topics: new Set(),
+            documentsUsed: new Set(['VMFXX'])
+        };
+        
+        // Update UI
+        document.querySelector('.session-id').textContent = `Session #${currentSession.id}`;
+        document.querySelector('.session-time').textContent = `Started ${formatTime(currentSession.startTime)}`;
+        document.querySelector('.summary-fab').style.display = 'none';
+        
+        alert('New chat started!');
+    };
+    
+    // Update current session info
+    function updateCurrentSessionInfo() {
+        const currentSessionItem = document.querySelector('.history-item.active');
+        if (currentSessionItem) {
+            const messageCount = currentSession.messages.length;
+            currentSessionItem.querySelector('.history-meta').textContent = 
+                `Started ${formatTime(currentSession.startTime)} • ${messageCount} message${messageCount !== 1 ? 's' : ''}`;
+        }
+    }
+    
+    // Generate session ID
+    function generateSessionId() {
+        return Math.random().toString(36).substr(2, 4).toUpperCase();
+    }
+    
+    // Format time
+    function formatTime(date) {
+        return date.toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true
+        });
+    }
+    
+    // Summary modal functions
     window.showSummary = function() {
-        // Update summary content
         updateSummaryContent();
         summaryModal.style.display = 'flex';
     };
