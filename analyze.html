@@ -4,64 +4,492 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analyze - Nexus Advisory</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/analyze.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0052FF;
+            --primary-dark: #0041CC;
+            --gray-50: #F9FAFB;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --success: #10B981;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            height: 64px;
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-right: auto;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: flex;
+            height: calc(100vh - 64px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 320px;
+            background: white;
+            border-right: 1px solid var(--gray-200);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-tabs {
+            display: flex;
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .tab-content {
+            flex: 1;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .add-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--gray-300);
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-600);
+        }
+
+        .add-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .new-chat-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* Document List */
+        .document-list {
+            padding: 1rem;
+        }
+
+        .document-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .document-item:hover {
+            background: var(--gray-50);
+        }
+
+        .document-item.active {
+            background: #EEF2FF;
+            border-color: var(--primary);
+        }
+
+        .doc-icon {
+            font-size: 1.5rem;
+        }
+
+        .doc-info {
+            flex: 1;
+        }
+
+        .doc-name {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .doc-type {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gray-300);
+        }
+
+        .status-dot.active {
+            background: var(--success);
+        }
+
+        /* History List */
+        .history-list {
+            padding: 1rem;
+        }
+
+        .history-item {
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .history-item:hover {
+            background: var(--gray-50);
+        }
+
+        .history-item.active {
+            background: #EEF2FF;
+            border-color: var(--primary);
+        }
+
+        .history-title {
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.25rem;
+        }
+
+        .history-meta {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            margin-bottom: 0.25rem;
+        }
+
+        .history-preview {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Chat Area */
+        .chat-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--gray-50);
+        }
+
+        .chat-header {
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+            padding-bottom: 8rem;
+        }
+
+        .message {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .ai-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .message-content {
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            max-width: 600px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .message.user .message-content {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            padding: 1rem 2rem;
+            background: white;
+            border-top: 1px solid var(--gray-200);
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .action-chip {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--gray-300);
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .action-chip:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Input Area */
+        .input-area {
+            padding: 1.5rem 2rem;
+            background: white;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .context-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .context-fund {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .input-container {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-end;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-300);
+            border-radius: 12px;
+            padding: 0.75rem;
+        }
+
+        .input-container:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 82, 255, 0.1);
+        }
+
+        #messageInput {
+            flex: 1;
+            border: none;
+            background: none;
+            resize: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 1rem;
+            line-height: 1.5;
+            min-height: 24px;
+            max-height: 120px;
+        }
+
+        .send-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Summary FAB */
+        .summary-fab {
+            position: fixed;
+            bottom: 7rem;
+            right: 2rem;
+            width: 56px;
+            height: 56px;
+            background: var(--primary);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 82, 255, 0.3);
+            display: none;
+        }
+
+        .summary-fab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 82, 255, 0.4);
+        }
+    </style>
 </head>
 <body>
-    <!-- Top Navigation -->
+    <!-- Navbar -->
     <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <div class="logo-icon">
-                    <svg width="32" height="32" viewBox="0 0 32 32">
-                        <circle cx="16" cy="16" r="14" fill="none" stroke="#0052FF" stroke-width="2"/>
-                        <circle cx="16" cy="16" r="4" fill="#0052FF"/>
-                    </svg>
-                </div>
-                <span class="logo-text">NEXUS ADVISORY</span>
-            </div>
-            <div class="nav-links">
-                <a href="index.html">Dashboard</a>
-                <a href="upload.html">Upload</a>
-                <a href="analyze.html" class="active">Analyze</a>
-            </div>
+        <div class="logo">
+            <svg class="logo-icon" viewBox="0 0 32 32">
+                <circle cx="16" cy="16" r="14" fill="none" stroke="#0052FF" stroke-width="2"/>
+                <circle cx="16" cy="16" r="4" fill="#0052FF"/>
+            </svg>
+            <span class="logo-text">NEXUS ADVISORY</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Dashboard</a>
+            <a href="upload.html">Upload</a>
+            <a href="analyze.html" class="active">Analyze</a>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="analyze-layout">
-        <!-- Left Sidebar -->
+    <!-- Main Layout -->
+    <main class="main-layout">
+        <!-- Sidebar -->
         <aside class="sidebar">
-            <!-- Tab Navigation -->
+            <!-- Tabs -->
             <div class="sidebar-tabs">
-                <button class="tab-btn active" data-tab="documents">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M2 4a2 2 0 012-2h8l4 4v8a2 2 0 01-2 2H4a2 2 0 01-2-2V4z"/>
-                    </svg>
-                    Documents
+                <button class="tab-btn active" onclick="switchTab('documents')">
+                    📄 Documents
                 </button>
-                <button class="tab-btn" data-tab="history">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.5"/>
-                        <path d="M8 5v3l2 2"/>
-                    </svg>
-                    History
+                <button class="tab-btn" onclick="switchTab('history')">
+                    🕒 History
                 </button>
             </div>
 
-            <!-- Documents Tab Content -->
-            <div class="tab-content" id="documents-tab">
+            <!-- Documents Tab -->
+            <div class="tab-content active" id="documents-tab">
                 <div class="sidebar-header">
                     <h2>Documents</h2>
-                    <button class="add-btn" title="Add document">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"/>
-                        </svg>
-                    </button>
+                    <button class="add-btn">+</button>
                 </div>
-
                 <div class="document-list">
                     <div class="document-item active">
                         <div class="doc-icon">📊</div>
@@ -69,64 +497,53 @@
                             <div class="doc-name">VMFXX</div>
                             <div class="doc-type">Money Market Fund</div>
                         </div>
-                        <div class="doc-status">
-                            <span class="status-dot active"></span>
-                        </div>
+                        <div class="status-dot active"></div>
                     </div>
-
                     <div class="document-item">
                         <div class="doc-icon">📈</div>
                         <div class="doc-info">
                             <div class="doc-name">VMRXX</div>
                             <div class="doc-type">Money Market Fund</div>
                         </div>
-                        <div class="doc-status">
-                            <span class="status-dot"></span>
-                        </div>
+                        <div class="status-dot"></div>
                     </div>
-
                     <div class="document-item">
                         <div class="doc-icon">💰</div>
                         <div class="doc-info">
                             <div class="doc-name">SPAXX</div>
                             <div class="doc-type">Money Market Fund</div>
                         </div>
-                        <div class="doc-status">
-                            <span class="status-dot"></span>
-                        </div>
+                        <div class="status-dot"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- History Tab Content -->
-            <div class="tab-content hidden" id="history-tab">
+            <!-- History Tab -->
+            <div class="tab-content" id="history-tab">
                 <div class="sidebar-header">
                     <h2>History</h2>
-                    <button class="new-chat-btn" onclick="startNewChat()">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 4a1 1 0 011 1v2h2a1 1 0 110 2H9v2a1 1 0 11-2 0V9H5a1 1 0 110-2h2V5a1 1 0 011-1z"/>
-                        </svg>
-                        New Chat
-                    </button>
+                    <button class="new-chat-btn">+ New Chat</button>
                 </div>
-
                 <div class="history-list">
                     <div class="history-item active">
                         <div class="history-title">Current Session</div>
                         <div class="history-meta">Started 2:34 PM • 1 message</div>
-                        <div class="history-preview">Initial analysis request...</div>
+                        <div class="history-preview">Financial advisory session...</div>
                     </div>
-
                     <div class="history-item">
-                        <div class="history-title">Fund Comparison</div>
+                        <div class="history-title">Fund Comparison Analysis</div>
                         <div class="history-meta">2 hours ago • 8 messages</div>
-                        <div class="history-preview">Compared all three funds...</div>
+                        <div class="history-preview">Compared VMFXX, VMRXX, and SPAXX yields...</div>
                     </div>
-
                     <div class="history-item">
-                        <div class="history-title">Risk Assessment</div>
+                        <div class="history-title">Risk Assessment Review</div>
                         <div class="history-meta">Yesterday • 12 messages</div>
-                        <div class="history-preview">Deep dive into risk factors...</div>
+                        <div class="history-preview">Deep dive into fund risk factors and NAV stability...</div>
+                    </div>
+                    <div class="history-item">
+                        <div class="history-title">Fee Structure Analysis</div>
+                        <div class="history-meta">2 days ago • 6 messages</div>
+                        <div class="history-preview">Examined expense ratios and their impact on returns...</div>
                     </div>
                 </div>
             </div>
@@ -134,171 +551,128 @@
 
         <!-- Chat Area -->
         <section class="chat-area">
-            <!-- Chat Header -->
             <header class="chat-header">
-                <div class="header-left">
-                    <h1>AI Financial Advisor</h1>
-                    <div class="session-info">
-                        <span class="session-id">Session #A7B3</span>
-                        <span class="session-time">Started 2:34 PM</span>
+                <div>
+                    <h1 style="font-size: 1.5rem; font-weight: 600;">AI Financial Advisor</h1>
+                    <div style="font-size: 0.875rem; color: var(--gray-500);">
+                        Session #A7B3 • Started 2:34 PM
                     </div>
                 </div>
-                <div class="header-right">
-                    <div class="status">
-                        <span class="status-indicator"></span>
-                        <span>Ready to analyze</span>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: var(--gray-600);">
+                        <span style="width: 8px; height: 8px; background: var(--success); border-radius: 50%;"></span>
+                        Ready to analyze
                     </div>
-                    <button class="export-btn" title="Export chat">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M3 15v3a1 1 0 001 1h12a1 1 0 001-1v-3M7 10l3 3 3-3M10 3v10"/>
-                        </svg>
-                    </button>
+                    <button class="add-btn">📥</button>
                 </div>
             </header>
 
-            <!-- Messages Area -->
-            <div class="messages-container" id="messages">
-                <div class="message assistant">
-                    <div class="avatar">
-                        <div class="ai-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                                <path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm0 18a8 8 0 118-8 8 8 0 01-8 8zm0-13a1 1 0 00-1 1v4a1 1 0 002 0V8a1 1 0 00-1-1zm0 8a1 1 0 100 2 1 1 0 000-2z"/>
-                            </svg>
-                        </div>
-                    </div>
+            <div class="messages-container">
+                <div class="message">
+                    <div class="ai-icon">🤖</div>
                     <div class="message-content">
                         <p>Hello! I'm your AI financial advisor. I have access to the prospectuses for <strong>VMFXX</strong>, <strong>VMRXX</strong>, and <strong>SPAXX</strong>.</p>
-                        <p>I can help you:</p>
-                        <ul>
+                        <p style="margin-top: 0.75rem;">I can help you:</p>
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
                             <li>Analyze individual fund characteristics</li>
                             <li>Compare funds side-by-side</li>
                             <li>Identify risks and opportunities</li>
                             <li>Answer specific questions about holdings, fees, or performance</li>
                         </ul>
-                        <p>What would you like to know?</p>
+                        <p style="margin-top: 0.75rem;">What would you like to know?</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Quick Actions -->
             <div class="quick-actions">
-                <button class="action-chip" onclick="sendQuickQuery(this)">
-                    <span class="chip-icon">🎯</span>
-                    Analyze VMFXX comprehensively
+                <button class="action-chip">
+                    <span>🎯</span> Analyze VMFXX comprehensively
                 </button>
-                <button class="action-chip" onclick="sendQuickQuery(this)">
-                    <span class="chip-icon">⚖️</span>
-                    Compare all three funds
+                <button class="action-chip">
+                    <span>⚖️</span> Compare all three funds
                 </button>
-                <button class="action-chip" onclick="sendQuickQuery(this)">
-                    <span class="chip-icon">🛡️</span>
-                    Which fund has the lowest risk?
+                <button class="action-chip">
+                    <span>🛡️</span> Which fund has the lowest risk?
                 </button>
-                <button class="action-chip" onclick="sendQuickQuery(this)">
-                    <span class="chip-icon">💰</span>
-                    Explain fee structures
+                <button class="action-chip">
+                    <span>💰</span> Explain fee structures
                 </button>
             </div>
 
-            <!-- Input Area -->
             <div class="input-area">
                 <div class="context-indicator">
                     <span>Analyzing:</span>
                     <span class="context-fund">VMFXX</span>
-                    <button class="context-clear" onclick="clearContext()">×</button>
+                    <button style="margin-left: 0.5rem; background: none; border: none; cursor: pointer; font-size: 1.25rem; color: var(--gray-400);">×</button>
                 </div>
                 <div class="input-container">
-                    <textarea 
-                        id="messageInput" 
-                        placeholder="Ask me anything about these funds..."
-                        rows="1"
-                    ></textarea>
-                    <div class="input-actions">
-                        <button class="input-btn" title="Attach file">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H9a1 1 0 01-1-1V7z"/>
-                            </svg>
-                        </button>
-                        <button class="input-btn" title="Voice input">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M10 12a2 2 0 002-2V6a2 2 0 10-4 0v4a2 2 0 002 2z"/>
-                                <path d="M6 10a4 4 0 108 0M10 12v4M8 16h4"/>
-                            </svg>
-                        </button>
-                        <button class="send-btn" id="sendBtn">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="white">
-                                <path d="M2 10l16-7-4 7 4 7z"/>
-                            </svg>
-                        </button>
-                    </div>
+                    <textarea id="messageInput" placeholder="Ask me anything about these funds..." rows="1"></textarea>
+                    <button class="send-btn">→</button>
                 </div>
             </div>
         </section>
 
-        <!-- Floating Summary Button - Moved to avoid overlap -->
-        <button class="summary-fab" onclick="showSummary()" title="View conversation summary" style="display: none;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
-                <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2zm0 16H5V9h14v11z"/>
-            </svg>
-        </button>
+        <!-- Summary FAB -->
+        <button class="summary-fab">📊</button>
     </main>
 
-    <!-- Conversation Summary Modal -->
-    <div class="summary-modal" id="summaryModal" style="display: none;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Conversation Summary</h3>
-                <button class="close-btn" onclick="closeSummary()">×</button>
-            </div>
-            <div class="modal-body">
-                <section class="summary-section">
-                    <h4>Key Topics Discussed</h4>
-                    <div class="topic-tags">
-                        <span class="tag">Yield Analysis</span>
-                        <span class="tag">Risk Assessment</span>
-                        <span class="tag">Fee Comparison</span>
-                    </div>
-                </section>
+    <script>
+        // Tab switching
+        function switchTab(tab) {
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`${tab}-tab`).classList.add('active');
+        }
 
-                <section class="summary-section">
-                    <h4>Documents Referenced</h4>
-                    <div class="doc-refs">
-                        <div class="doc-ref">
-                            <span>📊 VMFXX Prospectus</span>
-                            <span class="pages">Pages 12-15, 23</span>
-                        </div>
-                        <div class="doc-ref">
-                            <span>📈 VMRXX Annual Report</span>
-                            <span class="pages">Pages 8-10</span>
-                        </div>
-                    </div>
-                </section>
+        // Document selection
+        document.querySelectorAll('.document-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Update active state
+                document.querySelectorAll('.document-item').forEach(doc => {
+                    doc.classList.remove('active');
+                    doc.querySelector('.status-dot').classList.remove('active');
+                });
+                this.classList.add('active');
+                this.querySelector('.status-dot').classList.add('active');
+                
+                // Update context
+                const docName = this.querySelector('.doc-name').textContent;
+                document.querySelector('.context-fund').textContent = docName;
+            });
+        });
 
-                <section class="summary-section">
-                    <h4>Key Insights</h4>
-                    <ul class="insights">
-                        <li>VMFXX offers the best balance for retail investors</li>
-                        <li>All funds maintain stable NAV with government securities</li>
-                        <li>Expense ratios significantly impact net returns</li>
-                    </ul>
-                </section>
+        // History selection
+        document.querySelectorAll('.history-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.history-item').forEach(hist => {
+                    hist.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
 
-                <section class="summary-section">
-                    <h4>Compliance Notes</h4>
-                    <div class="compliance">
-                        <p>✓ All recommendations based on public prospectus data</p>
-                        <p>✓ Risk disclosures provided</p>
-                        <p>✓ No personalized investment advice given</p>
-                    </div>
-                </section>
-            </div>
-            <div class="modal-footer">
-                <button class="btn secondary" onclick="saveSummary()">Save to Records</button>
-                <button class="btn primary" onclick="generateReport()">Generate Report</button>
-            </div>
-        </div>
-    </div>
+        // Auto-resize textarea
+        const messageInput = document.getElementById('messageInput');
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        });
 
-    <script src="js/analyze.js"></script>
+        // Quick actions
+        document.querySelectorAll('.action-chip').forEach(chip => {
+            chip.addEventListener('click', function() {
+                messageInput.value = this.textContent.trim();
+                messageInput.focus();
+            });
+        });
+    </script>
 </body>
 </html>
