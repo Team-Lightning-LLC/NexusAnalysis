@@ -55,7 +55,7 @@
             <div class="tab-content" id="documents-tab">
                 <div class="sidebar-header">
                     <h2>Documents</h2>
-                    <button class="add-btn">
+                    <button class="add-btn" title="Add document">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"/>
                         </svg>
@@ -102,10 +102,11 @@
             <div class="tab-content hidden" id="history-tab">
                 <div class="sidebar-header">
                     <h2>History</h2>
-                    <button class="add-btn">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"/>
+                    <button class="new-chat-btn" onclick="startNewChat()">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 4a1 1 0 011 1v2h2a1 1 0 110 2H9v2a1 1 0 11-2 0V9H5a1 1 0 110-2h2V5a1 1 0 011-1z"/>
                         </svg>
+                        New Chat
                     </button>
                 </div>
 
@@ -234,8 +235,8 @@
             </div>
         </section>
 
-        <!-- Floating Summary Button -->
-        <button class="summary-fab" onclick="showSummary()" title="View conversation summary">
+        <!-- Floating Summary Button - Moved to avoid overlap -->
+        <button class="summary-fab" onclick="showSummary()" title="View conversation summary" style="display: none;">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
                 <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2zm0 16H5V9h14v11z"/>
             </svg>
